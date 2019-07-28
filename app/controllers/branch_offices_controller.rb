@@ -13,21 +13,25 @@ class BranchOfficesController < ApplicationController
   # GET /branch_offices/1
   # GET /branch_offices/1.json
   def show
+    authorize @branch_office
   end
 
   # GET /branch_offices/new
   def new
     @branch_office = BranchOffice.new
+    authorize @branch_office
   end
 
   # GET /branch_offices/1/edit
   def edit
+    authorize @branch_office
   end
 
   # POST /branch_offices
   # POST /branch_offices.json
   def create
     @branch_office = BranchOffice.new(branch_office_params)
+    authorize @branch_office
 
     respond_to do |format|
       if @branch_office.save
@@ -43,8 +47,11 @@ class BranchOfficesController < ApplicationController
   # PATCH/PUT /branch_offices/1
   # PATCH/PUT /branch_offices/1.json
   def update
+    @branch_office
+    authorize @branch_office
+
     respond_to do |format|
-      if @branch_office.update(branch_office_params)
+      if @branch_office.update
         format.html { redirect_to @branch_office, notice: 'Branch office was successfully updated.' }
         format.json { render :show, status: :ok, location: @branch_office }
       else
@@ -57,6 +64,7 @@ class BranchOfficesController < ApplicationController
   # DELETE /branch_offices/1
   # DELETE /branch_offices/1.json
   def destroy
+    authorize @branch_office
     @branch_office.destroy
     respond_to do |format|
       format.html { redirect_to branch_offices_url, notice: 'Branch office was successfully destroyed.' }

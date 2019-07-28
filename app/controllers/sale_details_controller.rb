@@ -1,30 +1,36 @@
 class SaleDetailsController < ApplicationController
   before_action :set_sale_detail, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /sale_details
   # GET /sale_details.json
   def index
     @sale_details = SaleDetail.all
+    authorize @sale_details
   end
 
   # GET /sale_details/1
   # GET /sale_details/1.json
   def show
+    authorize @sale_detail
   end
 
   # GET /sale_details/new
   def new
     @sale_detail = SaleDetail.new
+    authorize @sale_detail
   end
 
   # GET /sale_details/1/edit
   def edit
+    authorize @sale_detail
   end
 
   # POST /sale_details
   # POST /sale_details.json
   def create
     @sale_detail = SaleDetail.new(sale_detail_params)
+    authorize @sale_detail
 
     respond_to do |format|
       if @sale_detail.save
@@ -40,6 +46,8 @@ class SaleDetailsController < ApplicationController
   # PATCH/PUT /sale_details/1
   # PATCH/PUT /sale_details/1.json
   def update
+    authorize @sale_detail
+
     respond_to do |format|
       if @sale_detail.update(sale_detail_params)
         format.html { redirect_to @sale_detail, notice: 'Sale detail was successfully updated.' }
@@ -54,6 +62,8 @@ class SaleDetailsController < ApplicationController
   # DELETE /sale_details/1
   # DELETE /sale_details/1.json
   def destroy
+    authorize @sale_detail
+
     @sale_detail.destroy
     respond_to do |format|
       format.html { redirect_to sale_details_url, notice: 'Sale detail was successfully destroyed.' }

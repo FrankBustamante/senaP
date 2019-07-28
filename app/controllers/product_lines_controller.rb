@@ -1,30 +1,36 @@
 class ProductLinesController < ApplicationController
   before_action :set_product_line, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /product_lines
   # GET /product_lines.json
   def index
     @product_lines = ProductLine.all
+    authorize @product_lines
   end
 
   # GET /product_lines/1
   # GET /product_lines/1.json
   def show
+    authorize @product_line
   end
 
   # GET /product_lines/new
   def new
     @product_line = ProductLine.new
+    authorize @product_line
   end
 
   # GET /product_lines/1/edit
   def edit
+    authorize @product_line
   end
 
   # POST /product_lines
   # POST /product_lines.json
   def create
     @product_line = ProductLine.new(product_line_params)
+    authorize @product_line
 
     respond_to do |format|
       if @product_line.save
@@ -40,6 +46,8 @@ class ProductLinesController < ApplicationController
   # PATCH/PUT /product_lines/1
   # PATCH/PUT /product_lines/1.json
   def update
+    authorize @product_line
+
     respond_to do |format|
       if @product_line.update(product_line_params)
         format.html { redirect_to @product_line, notice: 'Product line was successfully updated.' }
@@ -54,6 +62,8 @@ class ProductLinesController < ApplicationController
   # DELETE /product_lines/1
   # DELETE /product_lines/1.json
   def destroy
+    authorize @product_line
+
     @product_line.destroy
     respond_to do |format|
       format.html { redirect_to product_lines_url, notice: 'Product line was successfully destroyed.' }

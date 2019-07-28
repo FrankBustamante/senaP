@@ -1,30 +1,36 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /reports
   # GET /reports.json
   def index
     @reports = Report.all
+    authorize @reports
   end
 
   # GET /reports/1
   # GET /reports/1.json
   def show
+    authorize @report
   end
 
   # GET /reports/new
   def new
     @report = Report.new
+    authorize @report
   end
 
   # GET /reports/1/edit
   def edit
+    authorize @report
   end
 
   # POST /reports
   # POST /reports.json
   def create
     @report = Report.new(report_params)
+    authorize @report
 
     respond_to do |format|
       if @report.save
@@ -40,6 +46,8 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   # PATCH/PUT /reports/1.json
   def update
+    authorize @report
+
     respond_to do |format|
       if @report.update(report_params)
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
@@ -54,6 +62,8 @@ class ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.json
   def destroy
+    authorize @report
+
     @report.destroy
     respond_to do |format|
       format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }

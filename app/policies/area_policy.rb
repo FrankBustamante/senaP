@@ -1,4 +1,4 @@
-class BranchOfficePolicy
+class AreaPolicy
   attr_reader :user, :model
 
   def initialize(user, model)
@@ -7,7 +7,7 @@ class BranchOfficePolicy
   end
 
   def index?
-    user.admin?
+    user.admin? || user.namager?
   end
 
   def show?
@@ -23,14 +23,14 @@ class BranchOfficePolicy
   end
 
   def new?
-    user.admin?
+    user.admin? || (user.manager? && model.user_id == user.id)
   end
 
   def create?
-    user.admin?
+    user.admin? || (user.manager? && model.user_id == user.id)
   end
 
   def destroy?
-    user.admin?
+    user.admin? || (user.manager? && model.user_id == user.id)
   end
 end

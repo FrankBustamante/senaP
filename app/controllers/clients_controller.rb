@@ -1,30 +1,36 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /clients
   # GET /clients.json
   def index
     @clients = Client.all
+    authorize @clients
   end
 
   # GET /clients/1
   # GET /clients/1.json
   def show
+    authorize @client
   end
 
   # GET /clients/new
   def new
     @client = Client.new
+    authorize @client
   end
 
   # GET /clients/1/edit
   def edit
+    authorize @client
   end
 
   # POST /clients
   # POST /clients.json
   def create
     @client = Client.new(client_params)
+    authorize @client
 
     respond_to do |format|
       if @client.save
@@ -40,6 +46,8 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
   def update
+    authorize @client
+
     respond_to do |format|
       if @client.update(client_params)
         format.html { redirect_to @client, notice: 'Client was successfully updated.' }
@@ -54,6 +62,8 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
+    authorize @client
+
     @client.destroy
     respond_to do |format|
       format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
