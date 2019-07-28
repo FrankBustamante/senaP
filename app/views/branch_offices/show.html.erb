@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>City:</strong>
+  <%= @branch_office.city %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @branch_office.user %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @branch_office.name %>
+</p>
+
+<p>
+  <strong>Telephone:</strong>
+  <%= @branch_office.telephone %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @branch_office.address %>
+</p>
+
+<%= link_to 'Edit', edit_branch_office_path(@branch_office) %> |
+<%= link_to 'Back', branch_offices_path %>
