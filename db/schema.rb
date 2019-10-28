@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_10_26_184137) do
 
-  create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
     t.string "name"
     t.bigint "branch_office_id"
     t.datetime "created_at", null: false
@@ -20,11 +23,12 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["branch_office_id"], name: "index_areas_on_branch_office_id"
   end
 
-  create_table "branch_offices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "branch_offices", force: :cascade do |t|
     t.bigint "city_id"
     t.bigint "user_id"
     t.string "name"
     t.string "telephone"
+    t.string "email"
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["user_id"], name: "index_branch_offices_on_user_id"
   end
 
-  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "cities", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.bigint "department_id"
@@ -41,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["department_id"], name: "index_cities_on_department_id"
   end
 
-  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "full_name"
     t.string "telephone"
     t.string "address"
@@ -50,14 +54,14 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.bigint "country_id"
@@ -66,14 +70,14 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["country_id"], name: "index_departments_on_country_id"
   end
 
-  create_table "product_lines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "product_lines", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.bigint "product_line_id"
@@ -87,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["product_line_id"], name: "index_products_on_product_line_id"
   end
 
-  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "reports", force: :cascade do |t|
     t.integer "type"
     t.string "description"
     t.string "adjunto"
@@ -99,7 +103,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
-  create_table "sale_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sale_details", force: :cascade do |t|
     t.bigint "sale_id"
     t.bigint "product_id"
     t.integer "quantity"
@@ -110,7 +114,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["sale_id"], name: "index_sale_details_on_sale_id"
   end
 
-  create_table "sales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sales", force: :cascade do |t|
     t.bigint "client_id"
     t.bigint "user_id"
     t.bigint "branch_office_id"
@@ -122,7 +126,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_184137) do
     t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
