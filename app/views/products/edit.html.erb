@@ -1,6 +1,6 @@
 <h1>Editing Product</h1>
 
-<%= render 'form', product: @product %>
+<%= render 'form', product: @product, url: branch_office_product_path(@product, branch_office_id: params[:branch_office_id]) %>
 
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'Ver', branch_office_product_path(@product, branch_office_id: params[:branch_office_id]) %> |
+<%= link_to 'Regresar', branch_office_products_path %>

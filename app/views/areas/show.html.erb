@@ -10,5 +10,5 @@
   <%= @area.branch_office %>
 </p>
 
-<%= link_to 'Edit', edit_area_path(@area) %> |
-<%= link_to 'Back', areas_path %>
+<%= link_to 'Edit', edit_branch_office_area_path(@area, branch_office_id: params[:branch_office_id] ) %> |
+<%= link_to 'Back', branch_office_areas_path(params[:branch_office_id]) %>

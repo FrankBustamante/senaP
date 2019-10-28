@@ -1,6 +1,6 @@
 <h1>Editing Area</h1>
 
-<%= render 'form', area: @area %>
+<%= render 'form', area: @area, url: branch_office_area_path( @area, branch_office_id: params[:branch_office_id])  %>
 
-<%= link_to 'Show', @area %> |
-<%= link_to 'Back', areas_path %>
+<%= link_to 'Show', branch_office_area_path(@area, branch_office_id: params[:branch_office_id]) %> |
+<%= link_to 'Back', branch_office_areas_path(branch_office_id: params[:branch_office_id] ) %>

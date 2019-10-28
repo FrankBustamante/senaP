@@ -1,0 +1,6 @@
+<%= render 'form', employee: @user, url: branch_office_employee_path(@user, branch_office_id: params[:branch_office_id]) %>
+
+<p>
+  <%= link_to 'Ver', branch_office_employee_path(@user, branch_office_id: params[:branch_office_id]) %> |
+  <%= link_to 'Regresar', branch_office_path(params[:branch_office_id]) %>
+  </p>

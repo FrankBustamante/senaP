@@ -1,0 +1,55 @@
+<%= form_with(model: employee, local: true, url: url) do |form| %>
+  <% if employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :area %>
+    <%= form.select :area_id, options_from_collection_for_select(@areas, :id, :name, employee.area_id) %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :names %>
+    <%= form.text_field :names, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :last_names %>
+    <%= form.text_field :last_names, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :identification %>
+    <%= form.text_field :identification, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, class: 'form-control' %>
+  </div>
+
+  <% if employee.new_record? %>
+  <div class="field form-group">
+    <%= form.label :password %>
+    <%= form.password_field :password , class: 'form-control'%>
+  </div>
+  <% end %>
+
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -2,6 +2,7 @@ class BranchOfficesController < ApplicationController
   before_action :authenticate_user!
   after_action :verify_authorized
   before_action :set_branch_office, only: [:show, :edit, :update, :destroy]
+  before_action :set_collections, only: [:new, :edit]
 
   # GET /branch_offices
   # GET /branch_offices.json
@@ -70,6 +71,11 @@ class BranchOfficesController < ApplicationController
       format.html { redirect_to branch_offices_url, notice: 'Branch office was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def set_collections
+    @users = User.manager
+    @cities = City.all
   end
 
   private

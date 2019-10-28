@@ -11,32 +11,34 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :city_id %>
-    <%= form.text_field :city_id %>
+    <%= form.select :city_id, options_from_collection_for_select(@cities, :id, :description ),{}, {
+      class: 'form-control'} %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+  <div class="field form-group">
+    <%= form.label :Gerente %>
+    <%= form.select :user_id, options_from_collection_for_select(@users, :id, :description),{}, {
+      class: 'form-control'} %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :telephone %>
-    <%= form.text_field :telephone %>
+  <div class="field form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :telephone, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Guardar', class: "btn btn-primary"%>
   </div>
 <% end %>

@@ -1,29 +1,33 @@
 <p id="notice"><%= notice %></p>
-
+<p>
+  <%= link_to 'Empleados', branch_office_employees_path(@branch_office) %> |
+  <%= link_to 'Areas', branch_office_areas_path(@branch_office) %> |
+  <%= link_to 'Productos', branch_office_products_path(@branch_office) %>
+</p>
 <p>
   <strong>City:</strong>
-  <%= @branch_office.city %>
+  <%= @branch_office.city.description %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @branch_office.user %>
+  <strong>Gerente:</strong>
+  <%= @branch_office.user.description %>
 </p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Nombre:</strong>
   <%= @branch_office.name %>
 </p>
 
 <p>
-  <strong>Telephone:</strong>
+  <strong>Telefono:</strong>
   <%= @branch_office.telephone %>
 </p>
 
 <p>
-  <strong>Address:</strong>
+  <strong>Direccion:</strong>
   <%= @branch_office.address %>
 </p>
 
-<%= link_to 'Edit', edit_branch_office_path(@branch_office) %> |
-<%= link_to 'Back', branch_offices_path %>
+  <%= link_to 'Editar', edit_branch_office_path(@branch_office) %> |
+  <%= link_to 'Regresar', branch_offices_path %>

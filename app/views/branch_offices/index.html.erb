@@ -1,30 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Branch Offices</h1>
+<h1>Sucursales</h1>
 
-<table>
+<table id="example" class="table table-striped table-bordered" style="width:100%" >
   <thead>
     <tr>
-      <th>City</th>
-      <th>User</th>
-      <th>Name</th>
-      <th>Telephone</th>
-      <th>Address</th>
-      <th colspan="3"></th>
+      <th>Ciudad</th>
+      <th>Gerente</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @branch_offices.each do |branch_office| %>
       <tr>
-        <td><%= branch_office.city %></td>
-        <td><%= branch_office.user %></td>
+        <td><%= branch_office.city.description %></td>
+        <td><%= branch_office.user.description %></td>
         <td><%= branch_office.name %></td>
         <td><%= branch_office.telephone %></td>
         <td><%= branch_office.address %></td>
-        <td><%= link_to 'Show', branch_office %></td>
-        <td><%= link_to 'Edit', edit_branch_office_path(branch_office) %></td>
-        <td><%= link_to 'Destroy', branch_office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Ver', branch_office %>
+        <%= link_to 'Editar', edit_branch_office_path(branch_office) %>
+        <%= link_to 'Eliminar', branch_office, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Branch Office', new_branch_office_path %>
+<%= link_to 'Nueva Sucursal', new_branch_office_path %>
