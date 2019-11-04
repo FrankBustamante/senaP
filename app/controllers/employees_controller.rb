@@ -16,6 +16,11 @@ class EmployeesController < ApplicationController
     authorize @user
   end
 
+  def new_manager
+    @user = User.new
+    authorize @user
+  end
+
   # GET /users/new
   def new
     @user = User.new
@@ -25,6 +30,22 @@ class EmployeesController < ApplicationController
   # GET /users/1/edit
   def edit
     authorize @user
+  end
+
+  def create_manager
+    @user = User.new(employee_params)
+    authorize @user
+
+    respond_to do |format|
+      if @user.save
+        @user.manager!
+        format.html { redirect_to branch_office_employees_path, notice: 'user was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /users

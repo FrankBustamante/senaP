@@ -31,6 +31,14 @@ class UserPolicy
   end
 
   def destroy?
-    user.admin? || (user.manager? && model.user_id == user.id)
+    user.admin? || (user.manager? && model.user_id != user.id)
+  end
+
+  def create_manager?
+    user.admin?
+  end
+
+  def new_manager?
+    user.admin?
   end
 end

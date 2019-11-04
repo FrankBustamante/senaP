@@ -1,0 +1,1380 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.15
+-- Dumped by pg_dump version 9.6.15
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO root;
+
+--
+-- Name: areas; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.areas (
+    id bigint NOT NULL,
+    name character varying,
+    branch_office_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.areas OWNER TO root;
+
+--
+-- Name: areas_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.areas_id_seq OWNER TO root;
+
+--
+-- Name: areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.areas_id_seq OWNED BY public.areas.id;
+
+
+--
+-- Name: branch_offices; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.branch_offices (
+    id bigint NOT NULL,
+    city_id bigint,
+    user_id bigint,
+    name character varying,
+    telephone character varying,
+    email character varying,
+    address character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.branch_offices OWNER TO root;
+
+--
+-- Name: branch_offices_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.branch_offices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.branch_offices_id_seq OWNER TO root;
+
+--
+-- Name: branch_offices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.branch_offices_id_seq OWNED BY public.branch_offices.id;
+
+
+--
+-- Name: cities; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.cities (
+    id bigint NOT NULL,
+    name character varying,
+    code character varying,
+    department_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.cities OWNER TO root;
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.cities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cities_id_seq OWNER TO root;
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.cities_id_seq OWNED BY public.cities.id;
+
+
+--
+-- Name: clients; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.clients (
+    id bigint NOT NULL,
+    full_name character varying,
+    telephone character varying,
+    address character varying,
+    identification character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.clients OWNER TO root;
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.clients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.clients_id_seq OWNER TO root;
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.clients_id_seq OWNED BY public.clients.id;
+
+
+--
+-- Name: countries; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.countries (
+    id bigint NOT NULL,
+    name character varying,
+    code character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.countries OWNER TO root;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.countries_id_seq OWNER TO root;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.countries_id_seq OWNED BY public.countries.id;
+
+
+--
+-- Name: departments; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.departments (
+    id bigint NOT NULL,
+    name character varying,
+    code character varying,
+    country_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.departments OWNER TO root;
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.departments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.departments_id_seq OWNER TO root;
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.departments_id_seq OWNED BY public.departments.id;
+
+
+--
+-- Name: product_lines; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.product_lines (
+    id bigint NOT NULL,
+    name character varying,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.product_lines OWNER TO root;
+
+--
+-- Name: product_lines_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.product_lines_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_lines_id_seq OWNER TO root;
+
+--
+-- Name: product_lines_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.product_lines_id_seq OWNED BY public.product_lines.id;
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    name character varying,
+    description character varying,
+    product_line_id bigint,
+    quantity integer,
+    price double precision,
+    branch_office_id bigint,
+    adjunto character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.products OWNER TO root;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO root;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
+-- Name: reports; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.reports (
+    id bigint NOT NULL,
+    type integer,
+    description character varying,
+    adjunto character varying,
+    branch_office_id bigint,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.reports OWNER TO root;
+
+--
+-- Name: reports_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reports_id_seq OWNER TO root;
+
+--
+-- Name: reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.reports_id_seq OWNED BY public.reports.id;
+
+
+--
+-- Name: sale_details; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.sale_details (
+    id bigint NOT NULL,
+    sale_id bigint,
+    product_id bigint,
+    quantity integer,
+    unit_price double precision,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sale_details OWNER TO root;
+
+--
+-- Name: sale_details_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.sale_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sale_details_id_seq OWNER TO root;
+
+--
+-- Name: sale_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.sale_details_id_seq OWNED BY public.sale_details.id;
+
+
+--
+-- Name: sales; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.sales (
+    id bigint NOT NULL,
+    client_id bigint,
+    user_id bigint,
+    branch_office_id bigint,
+    invoice_code character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sales OWNER TO root;
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.sales_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sales_id_seq OWNER TO root;
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.sales_id_seq OWNED BY public.sales.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO root;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    role integer,
+    names character varying,
+    last_names character varying,
+    identification character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    area_id bigint
+);
+
+
+ALTER TABLE public.users OWNER TO root;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO root;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: areas id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.areas ALTER COLUMN id SET DEFAULT nextval('public.areas_id_seq'::regclass);
+
+
+--
+-- Name: branch_offices id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.branch_offices ALTER COLUMN id SET DEFAULT nextval('public.branch_offices_id_seq'::regclass);
+
+
+--
+-- Name: cities id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities ALTER COLUMN id SET DEFAULT nextval('public.cities_id_seq'::regclass);
+
+
+--
+-- Name: clients id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.clients ALTER COLUMN id SET DEFAULT nextval('public.clients_id_seq'::regclass);
+
+
+--
+-- Name: countries id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.countries_id_seq'::regclass);
+
+
+--
+-- Name: departments id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.departments ALTER COLUMN id SET DEFAULT nextval('public.departments_id_seq'::regclass);
+
+
+--
+-- Name: product_lines id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_lines ALTER COLUMN id SET DEFAULT nextval('public.product_lines_id_seq'::regclass);
+
+
+--
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
+-- Name: reports id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.reports ALTER COLUMN id SET DEFAULT nextval('public.reports_id_seq'::regclass);
+
+
+--
+-- Name: sale_details id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sale_details ALTER COLUMN id SET DEFAULT nextval('public.sale_details_id_seq'::regclass);
+
+
+--
+-- Name: sales id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sales ALTER COLUMN id SET DEFAULT nextval('public.sales_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2019-10-28 10:37:51.859358	2019-10-28 10:37:51.859358
+\.
+
+
+--
+-- Data for Name: areas; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.areas (id, name, branch_office_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: areas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.areas_id_seq', 1, false);
+
+
+--
+-- Data for Name: branch_offices; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.branch_offices (id, city_id, user_id, name, telephone, email, address, created_at, updated_at) FROM stdin;
+3	11	5	Prueba sucursal	00000	\N	Principal	2019-11-04 15:38:10.698631	2019-11-04 15:38:10.698631
+\.
+
+
+--
+-- Name: branch_offices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.branch_offices_id_seq', 3, true);
+
+
+--
+-- Data for Name: cities; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.cities (id, name, code, department_id, created_at, updated_at) FROM stdin;
+1	Bello	\N	1	2019-10-28 17:43:40.080379	2019-10-28 17:43:40.080379
+2	Caldas	\N	1	2019-10-28 17:43:40.136465	2019-10-28 17:43:40.136465
+3	Copacabana	\N	1	2019-10-28 17:43:40.147537	2019-10-28 17:43:40.147537
+4	Envigado	\N	1	2019-10-28 17:43:40.15802	2019-10-28 17:43:40.15802
+5	Guarne	\N	1	2019-10-28 17:43:40.169697	2019-10-28 17:43:40.169697
+6	Itagui	\N	1	2019-10-28 17:43:40.180883	2019-10-28 17:43:40.180883
+7	La Ceja	\N	1	2019-10-28 17:43:40.191074	2019-10-28 17:43:40.191074
+8	La Estrella	\N	1	2019-10-28 17:43:40.202033	2019-10-28 17:43:40.202033
+9	La Tablaza	\N	1	2019-10-28 17:43:40.21305	2019-10-28 17:43:40.21305
+10	Marinilla	\N	1	2019-10-28 17:43:40.224114	2019-10-28 17:43:40.224114
+11	Medellin	\N	1	2019-10-28 17:43:40.235317	2019-10-28 17:43:40.235317
+12	Rionegro	\N	1	2019-10-28 17:43:40.246191	2019-10-28 17:43:40.246191
+13	Sabaneta	\N	1	2019-10-28 17:43:40.25735	2019-10-28 17:43:40.25735
+14	San Antonio de Prado	\N	1	2019-10-28 17:43:40.268243	2019-10-28 17:43:40.268243
+15	San Cristobal	\N	1	2019-10-28 17:43:40.279844	2019-10-28 17:43:40.279844
+16	Caucasia	\N	1	2019-10-28 17:43:40.290844	2019-10-28 17:43:40.290844
+17	Barranquilla	\N	2	2019-10-28 17:43:40.30197	2019-10-28 17:43:40.30197
+18	Malambo	\N	2	2019-10-28 17:43:40.313211	2019-10-28 17:43:40.313211
+19	Puerto Colombia	\N	2	2019-10-28 17:43:40.324262	2019-10-28 17:43:40.324262
+20	Soledad	\N	2	2019-10-28 17:43:40.335244	2019-10-28 17:43:40.335244
+21	Arjona	\N	3	2019-10-28 17:43:40.346242	2019-10-28 17:43:40.346242
+22	Bayunca	\N	3	2019-10-28 17:43:40.357206	2019-10-28 17:43:40.357206
+23	Carmen de Bolivar	\N	3	2019-10-28 17:43:40.368187	2019-10-28 17:43:40.368187
+24	Cartagena	\N	3	2019-10-28 17:43:40.379678	2019-10-28 17:43:40.379678
+25	Turbaco	\N	3	2019-10-28 17:43:40.390432	2019-10-28 17:43:40.390432
+26	Arcabuco	\N	4	2019-10-28 17:43:40.401765	2019-10-28 17:43:40.401765
+27	Belencito	\N	4	2019-10-28 17:43:40.412721	2019-10-28 17:43:40.412721
+28	Chiquinquira	\N	4	2019-10-28 17:43:40.42402	2019-10-28 17:43:40.42402
+29	Combita	\N	4	2019-10-28 17:43:40.435334	2019-10-28 17:43:40.435334
+30	Cucaita	\N	4	2019-10-28 17:43:40.446451	2019-10-28 17:43:40.446451
+31	Duitama	\N	4	2019-10-28 17:43:40.457557	2019-10-28 17:43:40.457557
+32	Mongui	\N	4	2019-10-28 17:43:40.479893	2019-10-28 17:43:40.479893
+33	Nobsa	\N	4	2019-10-28 17:43:40.490723	2019-10-28 17:43:40.490723
+34	Paipa	\N	4	2019-10-28 17:43:40.501493	2019-10-28 17:43:40.501493
+35	Puerto Boyaca	\N	4	2019-10-28 17:43:40.513093	2019-10-28 17:43:40.513093
+36	Raquira	\N	4	2019-10-28 17:43:40.524038	2019-10-28 17:43:40.524038
+37	Samaca	\N	4	2019-10-28 17:43:40.535094	2019-10-28 17:43:40.535094
+38	Santa Rosa de Viterbo	\N	4	2019-10-28 17:43:40.546305	2019-10-28 17:43:40.546305
+39	Sogamoso	\N	4	2019-10-28 17:43:40.557072	2019-10-28 17:43:40.557072
+40	Sutamerchan	\N	4	2019-10-28 17:43:40.568255	2019-10-28 17:43:40.568255
+41	Tibasosa	\N	4	2019-10-28 17:43:40.57969	2019-10-28 17:43:40.57969
+42	Tinjaca	\N	4	2019-10-28 17:43:40.590702	2019-10-28 17:43:40.590702
+43	Tunja	\N	4	2019-10-28 17:43:40.601554	2019-10-28 17:43:40.601554
+44	Ventaquemada	\N	4	2019-10-28 17:43:40.612739	2019-10-28 17:43:40.612739
+45	Villa de Leiva	\N	4	2019-10-28 17:43:40.624124	2019-10-28 17:43:40.624124
+46	La Dorada	\N	5	2019-10-28 17:43:40.635041	2019-10-28 17:43:40.635041
+47	Manizales	\N	5	2019-10-28 17:43:40.645989	2019-10-28 17:43:40.645989
+48	Villamaria	\N	5	2019-10-28 17:43:40.657535	2019-10-28 17:43:40.657535
+49	Caloto	\N	6	2019-10-28 17:43:40.668465	2019-10-28 17:43:40.668465
+50	Ortigal	\N	6	2019-10-28 17:43:40.679643	2019-10-28 17:43:40.679643
+51	Piendamo	\N	6	2019-10-28 17:43:40.690984	2019-10-28 17:43:40.690984
+52	Popayan	\N	6	2019-10-28 17:43:40.701752	2019-10-28 17:43:40.701752
+53	Puerto Tejada	\N	6	2019-10-28 17:43:40.712713	2019-10-28 17:43:40.712713
+54	Santander Quilichao	\N	6	2019-10-28 17:43:40.723584	2019-10-28 17:43:40.723584
+55	Tunia	\N	6	2019-10-28 17:43:40.735296	2019-10-28 17:43:40.735296
+56	Villarica	\N	6	2019-10-28 17:43:40.747016	2019-10-28 17:43:40.747016
+57	Valledupar	\N	7	2019-10-28 17:43:40.756999	2019-10-28 17:43:40.756999
+58	Cerete	\N	8	2019-10-28 17:43:40.768335	2019-10-28 17:43:40.768335
+59	Monteria	\N	8	2019-10-28 17:43:40.779397	2019-10-28 17:43:40.779397
+60	Planeta Rica	\N	8	2019-10-28 17:43:40.7905	2019-10-28 17:43:40.7905
+61	Alban	\N	9	2019-10-28 17:43:40.801565	2019-10-28 17:43:40.801565
+62	Bogota	\N	9	2019-10-28 17:43:40.812583	2019-10-28 17:43:40.812583
+63	Bojaca	\N	9	2019-10-28 17:43:40.823869	2019-10-28 17:43:40.823869
+64	Bosa	\N	9	2019-10-28 17:43:40.835025	2019-10-28 17:43:40.835025
+65	Briceño	\N	9	2019-10-28 17:43:40.846342	2019-10-28 17:43:40.846342
+66	Cajica	\N	9	2019-10-28 17:43:40.857098	2019-10-28 17:43:40.857098
+67	Chia	\N	9	2019-10-28 17:43:40.868294	2019-10-28 17:43:40.868294
+68	Chinauta	\N	9	2019-10-28 17:43:40.87951	2019-10-28 17:43:40.87951
+69	Choconta	\N	9	2019-10-28 17:43:40.892802	2019-10-28 17:43:40.892802
+70	Cota	\N	9	2019-10-28 17:43:40.901227	2019-10-28 17:43:40.901227
+71	El Muña	\N	9	2019-10-28 17:43:40.912467	2019-10-28 17:43:40.912467
+72	El Rosal	\N	9	2019-10-28 17:43:40.923513	2019-10-28 17:43:40.923513
+73	Engativa	\N	9	2019-10-28 17:43:40.934683	2019-10-28 17:43:40.934683
+74	Facatativa	\N	9	2019-10-28 17:43:40.945698	2019-10-28 17:43:40.945698
+75	Fontibon	\N	9	2019-10-28 17:43:40.957074	2019-10-28 17:43:40.957074
+76	Funza	\N	9	2019-10-28 17:43:40.96811	2019-10-28 17:43:40.96811
+77	Fusagasuga	\N	9	2019-10-28 17:43:40.979313	2019-10-28 17:43:40.979313
+78	Gachancipa	\N	9	2019-10-28 17:43:40.990299	2019-10-28 17:43:40.990299
+79	Girardot	\N	9	2019-10-28 17:43:41.001617	2019-10-28 17:43:41.001617
+80	Guaduas	\N	9	2019-10-28 17:43:41.012323	2019-10-28 17:43:41.012323
+81	Guayavetal	\N	9	2019-10-28 17:43:41.023905	2019-10-28 17:43:41.023905
+82	La Calera	\N	9	2019-10-28 17:43:41.040553	2019-10-28 17:43:41.040553
+83	La Caro	\N	9	2019-10-28 17:43:41.057311	2019-10-28 17:43:41.057311
+84	Madrid	\N	9	2019-10-28 17:43:41.069399	2019-10-28 17:43:41.069399
+85	Mosquera	\N	9	2019-10-28 17:43:41.126586	2019-10-28 17:43:41.126586
+86	Nemocon	\N	9	2019-10-28 17:43:41.147137	2019-10-28 17:43:41.147137
+87	Puente Piedra	\N	9	2019-10-28 17:43:41.157992	2019-10-28 17:43:41.157992
+88	Puente Quetame	\N	9	2019-10-28 17:43:41.169055	2019-10-28 17:43:41.169055
+89	Puerto Bogota	\N	9	2019-10-28 17:43:41.179774	2019-10-28 17:43:41.179774
+90	Puerto Salgar	\N	9	2019-10-28 17:43:41.190891	2019-10-28 17:43:41.190891
+91	Quetame	\N	9	2019-10-28 17:43:41.20148	2019-10-28 17:43:41.20148
+92	Sasaima	\N	9	2019-10-28 17:43:41.212644	2019-10-28 17:43:41.212644
+93	Sesquile	\N	9	2019-10-28 17:43:41.223457	2019-10-28 17:43:41.223457
+94	Sibate	\N	9	2019-10-28 17:43:41.234496	2019-10-28 17:43:41.234496
+95	Silvania	\N	9	2019-10-28 17:43:41.24576	2019-10-28 17:43:41.24576
+96	Simijaca	\N	9	2019-10-28 17:43:41.257275	2019-10-28 17:43:41.257275
+97	Soacha	\N	9	2019-10-28 17:43:41.267785	2019-10-28 17:43:41.267785
+98	Sopo	\N	9	2019-10-28 17:43:41.279097	2019-10-28 17:43:41.279097
+99	Suba	\N	9	2019-10-28 17:43:41.29012	2019-10-28 17:43:41.29012
+100	Subachoque	\N	9	2019-10-28 17:43:41.301278	2019-10-28 17:43:41.301278
+101	Susa	\N	9	2019-10-28 17:43:41.312344	2019-10-28 17:43:41.312344
+102	Tabio	\N	9	2019-10-28 17:43:41.323419	2019-10-28 17:43:41.323419
+103	Tenjo	\N	9	2019-10-28 17:43:41.334494	2019-10-28 17:43:41.334494
+104	Tocancipa	\N	9	2019-10-28 17:43:41.345552	2019-10-28 17:43:41.345552
+105	Ubate	\N	9	2019-10-28 17:43:41.356691	2019-10-28 17:43:41.356691
+106	Usaquen	\N	9	2019-10-28 17:43:41.367726	2019-10-28 17:43:41.367726
+107	Usme	\N	9	2019-10-28 17:43:41.379085	2019-10-28 17:43:41.379085
+108	Villapinzon	\N	9	2019-10-28 17:43:41.389806	2019-10-28 17:43:41.389806
+109	Villeta	\N	9	2019-10-28 17:43:41.401011	2019-10-28 17:43:41.401011
+110	Zipaquira	\N	9	2019-10-28 17:43:41.412199	2019-10-28 17:43:41.412199
+111	Maicao	\N	10	2019-10-28 17:43:41.423585	2019-10-28 17:43:41.423585
+112	Riohacha	\N	10	2019-10-28 17:43:41.434415	2019-10-28 17:43:41.434415
+113	Aipe	\N	11	2019-10-28 17:43:41.445349	2019-10-28 17:43:41.445349
+114	Neiva	\N	11	2019-10-28 17:43:41.45621	2019-10-28 17:43:41.45621
+115	Cienaga	\N	12	2019-10-28 17:43:41.467307	2019-10-28 17:43:41.467307
+116	Gaira	\N	12	2019-10-28 17:43:41.478351	2019-10-28 17:43:41.478351
+117	Rodadero	\N	12	2019-10-28 17:43:41.489369	2019-10-28 17:43:41.489369
+118	Santa Marta	\N	12	2019-10-28 17:43:41.501027	2019-10-28 17:43:41.501027
+119	Taganga	\N	12	2019-10-28 17:43:41.512199	2019-10-28 17:43:41.512199
+120	Villavicencio	\N	13	2019-10-28 17:43:41.522898	2019-10-28 17:43:41.522898
+121	Ipiales	\N	14	2019-10-28 17:43:41.533965	2019-10-28 17:43:41.533965
+122	Pasto	\N	14	2019-10-28 17:43:41.545224	2019-10-28 17:43:41.545224
+123	Cucuta	\N	15	2019-10-28 17:43:41.55609	2019-10-28 17:43:41.55609
+124	El Zulia	\N	15	2019-10-28 17:43:41.5673	2019-10-28 17:43:41.5673
+125	La Parada	\N	15	2019-10-28 17:43:41.57844	2019-10-28 17:43:41.57844
+126	Los Patios	\N	15	2019-10-28 17:43:41.589778	2019-10-28 17:43:41.589778
+127	Villa del Rosario	\N	15	2019-10-28 17:43:41.600804	2019-10-28 17:43:41.600804
+128	Armenia	\N	16	2019-10-28 17:43:41.612109	2019-10-28 17:43:41.612109
+129	Calarca	\N	16	2019-10-28 17:43:41.624007	2019-10-28 17:43:41.624007
+130	Circasia	\N	16	2019-10-28 17:43:41.634315	2019-10-28 17:43:41.634315
+131	La Tebaida	\N	16	2019-10-28 17:43:41.64519	2019-10-28 17:43:41.64519
+132	Montenegro	\N	16	2019-10-28 17:43:41.656403	2019-10-28 17:43:41.656403
+133	Quimbaya	\N	16	2019-10-28 17:43:41.667495	2019-10-28 17:43:41.667495
+134	Dosquebradas	\N	17	2019-10-28 17:43:41.678646	2019-10-28 17:43:41.678646
+135	Pereira	\N	17	2019-10-28 17:43:41.68971	2019-10-28 17:43:41.68971
+136	Aratoca	\N	18	2019-10-28 17:43:41.701023	2019-10-28 17:43:41.701023
+137	Barbosa	\N	18	2019-10-28 17:43:41.713561	2019-10-28 17:43:41.713561
+138	Bucaramanga	\N	18	2019-10-28 17:43:41.722793	2019-10-28 17:43:41.722793
+139	Floridablanca	\N	18	2019-10-28 17:43:41.73378	2019-10-28 17:43:41.73378
+140	Giron	\N	18	2019-10-28 17:43:41.745295	2019-10-28 17:43:41.745295
+141	Lebrija	\N	18	2019-10-28 17:43:41.756029	2019-10-28 17:43:41.756029
+142	Oiba	\N	18	2019-10-28 17:43:41.767114	2019-10-28 17:43:41.767114
+143	Piedecuesta	\N	18	2019-10-28 17:43:41.77815	2019-10-28 17:43:41.77815
+144	Pinchote	\N	18	2019-10-28 17:43:41.789312	2019-10-28 17:43:41.789312
+145	San Gil	\N	18	2019-10-28 17:43:41.800424	2019-10-28 17:43:41.800424
+146	Socorro	\N	18	2019-10-28 17:43:41.812668	2019-10-28 17:43:41.812668
+147	Sincelejo	\N	19	2019-10-28 17:43:41.822953	2019-10-28 17:43:41.822953
+148	Armero	\N	20	2019-10-28 17:43:41.834065	2019-10-28 17:43:41.834065
+149	Buenos Aires	\N	20	2019-10-28 17:43:41.845006	2019-10-28 17:43:41.845006
+150	Castilla	\N	20	2019-10-28 17:43:41.856524	2019-10-28 17:43:41.856524
+151	Espinal	\N	20	2019-10-28 17:43:41.867564	2019-10-28 17:43:41.867564
+152	Flandes	\N	20	2019-10-28 17:43:41.879172	2019-10-28 17:43:41.879172
+153	Guamo	\N	20	2019-10-28 17:43:41.890026	2019-10-28 17:43:41.890026
+154	Honda	\N	20	2019-10-28 17:43:41.901058	2019-10-28 17:43:41.901058
+155	Ibague	\N	20	2019-10-28 17:43:41.911752	2019-10-28 17:43:41.911752
+156	Mariquita	\N	20	2019-10-28 17:43:41.922877	2019-10-28 17:43:41.922877
+157	Melgar	\N	20	2019-10-28 17:43:41.933889	2019-10-28 17:43:41.933889
+158	Natagaima	\N	20	2019-10-28 17:43:41.944759	2019-10-28 17:43:41.944759
+159	Payande	\N	20	2019-10-28 17:43:41.956455	2019-10-28 17:43:41.956455
+160	Purificacion	\N	20	2019-10-28 17:43:41.967565	2019-10-28 17:43:41.967565
+161	Saldaña	\N	20	2019-10-28 17:43:41.978783	2019-10-28 17:43:41.978783
+162	Tolemaida	\N	20	2019-10-28 17:43:41.98962	2019-10-28 17:43:41.98962
+163	Amaime	\N	21	2019-10-28 17:43:42.000585	2019-10-28 17:43:42.000585
+164	Andalucia	\N	21	2019-10-28 17:43:42.011586	2019-10-28 17:43:42.011586
+165	Buenaventura	\N	21	2019-10-28 17:43:42.02273	2019-10-28 17:43:42.02273
+166	Buga	\N	21	2019-10-28 17:43:42.033466	2019-10-28 17:43:42.033466
+167	Buga La Grande	\N	21	2019-10-28 17:43:42.055968	2019-10-28 17:43:42.055968
+168	Caicedonia	\N	21	2019-10-28 17:43:42.066824	2019-10-28 17:43:42.066824
+169	Cali	\N	21	2019-10-28 17:43:42.077847	2019-10-28 17:43:42.077847
+170	Candelaria	\N	21	2019-10-28 17:43:42.088907	2019-10-28 17:43:42.088907
+171	Cartago	\N	21	2019-10-28 17:43:42.106521	2019-10-28 17:43:42.106521
+172	Cavasa	\N	21	2019-10-28 17:43:42.122577	2019-10-28 17:43:42.122577
+173	Costa Rica	\N	21	2019-10-28 17:43:42.133844	2019-10-28 17:43:42.133844
+174	Dagua	\N	21	2019-10-28 17:43:42.14459	2019-10-28 17:43:42.14459
+175	El Carmelo	\N	21	2019-10-28 17:43:42.155765	2019-10-28 17:43:42.155765
+176	El Cerrito	\N	21	2019-10-28 17:43:42.166854	2019-10-28 17:43:42.166854
+177	El Placer	\N	21	2019-10-28 17:43:42.177834	2019-10-28 17:43:42.177834
+178	Florida	\N	21	2019-10-28 17:43:42.189249	2019-10-28 17:43:42.189249
+179	Ginebra	\N	21	2019-10-28 17:43:42.200427	2019-10-28 17:43:42.200427
+180	Guacari	\N	21	2019-10-28 17:43:42.211417	2019-10-28 17:43:42.211417
+181	Jamundi	\N	21	2019-10-28 17:43:42.222618	2019-10-28 17:43:42.222618
+182	La Paila	\N	21	2019-10-28 17:43:42.233511	2019-10-28 17:43:42.233511
+183	La Union	\N	21	2019-10-28 17:43:42.244387	2019-10-28 17:43:42.244387
+184	La Victoria	\N	21	2019-10-28 17:43:42.255342	2019-10-28 17:43:42.255342
+185	Loboguerrero	\N	21	2019-10-28 17:43:42.266525	2019-10-28 17:43:42.266525
+186	Palmira	\N	21	2019-10-28 17:43:42.277725	2019-10-28 17:43:42.277725
+187	Pradera	\N	21	2019-10-28 17:43:42.288639	2019-10-28 17:43:42.288639
+188	Roldanillo	\N	21	2019-10-28 17:43:42.299797	2019-10-28 17:43:42.299797
+189	Rozo	\N	21	2019-10-28 17:43:42.310833	2019-10-28 17:43:42.310833
+190	San Pedro	\N	21	2019-10-28 17:43:42.321984	2019-10-28 17:43:42.321984
+191	Sevilla	\N	21	2019-10-28 17:43:42.333052	2019-10-28 17:43:42.333052
+192	Sonso	\N	21	2019-10-28 17:43:42.34404	2019-10-28 17:43:42.34404
+193	Tulua	\N	21	2019-10-28 17:43:42.35525	2019-10-28 17:43:42.35525
+194	Vijes	\N	21	2019-10-28 17:43:42.366772	2019-10-28 17:43:42.366772
+195	Villa Gorgona	\N	21	2019-10-28 17:43:42.377999	2019-10-28 17:43:42.377999
+196	Yotoco	\N	21	2019-10-28 17:43:42.389	2019-10-28 17:43:42.389
+197	Yumbo	\N	21	2019-10-28 17:43:42.404657	2019-10-28 17:43:42.404657
+198	Zarzal	\N	21	2019-10-28 17:43:42.422123	2019-10-28 17:43:42.422123
+\.
+
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.cities_id_seq', 198, true);
+
+
+--
+-- Data for Name: clients; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.clients (id, full_name, telephone, address, identification, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.clients_id_seq', 1, false);
+
+
+--
+-- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.countries (id, name, code, created_at, updated_at) FROM stdin;
+1	Colombia	\N	2019-10-28 17:43:19.342053	2019-10-28 17:43:19.342053
+2	Colombia	\N	2019-10-28 17:43:39.623556	2019-10-28 17:43:39.623556
+\.
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.countries_id_seq', 2, true);
+
+
+--
+-- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.departments (id, name, code, country_id, created_at, updated_at) FROM stdin;
+1	Antioquia	\N	2	2019-10-28 17:43:39.732498	2019-10-28 17:43:39.732498
+2	Atlantico	\N	2	2019-10-28 17:43:39.82505	2019-10-28 17:43:39.82505
+3	Bolivar	\N	2	2019-10-28 17:43:39.835461	2019-10-28 17:43:39.835461
+4	Boyaca	\N	2	2019-10-28 17:43:39.84654	2019-10-28 17:43:39.84654
+5	Caldas	\N	2	2019-10-28 17:43:39.857614	2019-10-28 17:43:39.857614
+6	Cauca	\N	2	2019-10-28 17:43:39.869559	2019-10-28 17:43:39.869559
+7	Cesar	\N	2	2019-10-28 17:43:39.87976	2019-10-28 17:43:39.87976
+8	Cordoba	\N	2	2019-10-28 17:43:39.890819	2019-10-28 17:43:39.890819
+9	Cundinamarca	\N	2	2019-10-28 17:43:39.901833	2019-10-28 17:43:39.901833
+10	Guajira	\N	2	2019-10-28 17:43:39.91304	2019-10-28 17:43:39.91304
+11	Huila	\N	2	2019-10-28 17:43:39.924105	2019-10-28 17:43:39.924105
+12	Magdalena	\N	2	2019-10-28 17:43:39.935202	2019-10-28 17:43:39.935202
+13	Meta	\N	2	2019-10-28 17:43:39.946247	2019-10-28 17:43:39.946247
+14	Nariño	\N	2	2019-10-28 17:43:39.957637	2019-10-28 17:43:39.957637
+15	Norte de Santander	\N	2	2019-10-28 17:43:39.968624	2019-10-28 17:43:39.968624
+16	Quindio	\N	2	2019-10-28 17:43:39.98025	2019-10-28 17:43:39.98025
+17	Risaralda	\N	2	2019-10-28 17:43:39.991082	2019-10-28 17:43:39.991082
+18	Santander	\N	2	2019-10-28 17:43:40.001981	2019-10-28 17:43:40.001981
+19	Sucre	\N	2	2019-10-28 17:43:40.013281	2019-10-28 17:43:40.013281
+20	Tolima	\N	2	2019-10-28 17:43:40.025159	2019-10-28 17:43:40.025159
+21	Valle del Cauca	\N	2	2019-10-28 17:43:40.040113	2019-10-28 17:43:40.040113
+\.
+
+
+--
+-- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.departments_id_seq', 21, true);
+
+
+--
+-- Data for Name: product_lines; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.product_lines (id, name, description, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: product_lines_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.product_lines_id_seq', 1, false);
+
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.products (id, name, description, product_line_id, quantity, price, branch_office_id, adjunto, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.products_id_seq', 1, false);
+
+
+--
+-- Data for Name: reports; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.reports (id, type, description, adjunto, branch_office_id, user_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: reports_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.reports_id_seq', 1, false);
+
+
+--
+-- Data for Name: sale_details; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.sale_details (id, sale_id, product_id, quantity, unit_price, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: sale_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.sale_details_id_seq', 1, false);
+
+
+--
+-- Data for Name: sales; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.sales (id, client_id, user_id, branch_office_id, invoice_code, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.sales_id_seq', 1, false);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20190728071021
+20190728112450
+20190728112557
+20190728112621
+20190728113139
+20190728115127
+20190728115457
+20190728115642
+20190728120124
+20190728120409
+20190728120749
+20190728121207
+20191026184137
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, role, names, last_names, identification, created_at, updated_at, area_id) FROM stdin;
+1	admin@admin.com	$2a$11$M1labKDWl7kU1zGwyv7RGOZ/rpSWa4wRhvEDao0dWpwvY794NsWq2	\N	\N	\N	0	admin	admin	\N	2019-10-28 17:26:22.314771	2019-10-28 17:26:22.314771	\N
+4	example@example.com	$2a$11$jPrp7fZOwVgvPxUgNisrgeBAIzY5vrM9fh3TXFWvMFpCCrqSxI/4a	\N	\N	\N	5	example	example	123456	2019-10-30 08:22:09.937397	2019-10-30 08:22:09.958547	\N
+5	nuevo22@example.comss	$2a$11$7rh70KdB2EtTFvKzfFiwgu0vPtAAkjnATordBmfQm5luRkC28I6fi	\N	\N	\N	5	Gerente	ejemplo	123456789	2019-11-03 19:00:58.642849	2019-11-03 19:00:58.682152	\N
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 5, true);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: areas areas_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.areas
+    ADD CONSTRAINT areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: branch_offices branch_offices_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.branch_offices
+    ADD CONSTRAINT branch_offices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cities cities_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities
+    ADD CONSTRAINT cities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clients clients_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.clients
+    ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: countries countries_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_lines product_lines_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_lines
+    ADD CONSTRAINT product_lines_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reports reports_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT reports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sale_details sale_details_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sale_details
+    ADD CONSTRAINT sale_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales sales_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sales
+    ADD CONSTRAINT sales_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_areas_on_branch_office_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_areas_on_branch_office_id ON public.areas USING btree (branch_office_id);
+
+
+--
+-- Name: index_branch_offices_on_city_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_branch_offices_on_city_id ON public.branch_offices USING btree (city_id);
+
+
+--
+-- Name: index_branch_offices_on_user_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_branch_offices_on_user_id ON public.branch_offices USING btree (user_id);
+
+
+--
+-- Name: index_cities_on_department_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_cities_on_department_id ON public.cities USING btree (department_id);
+
+
+--
+-- Name: index_departments_on_country_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_departments_on_country_id ON public.departments USING btree (country_id);
+
+
+--
+-- Name: index_products_on_branch_office_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_products_on_branch_office_id ON public.products USING btree (branch_office_id);
+
+
+--
+-- Name: index_products_on_product_line_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_products_on_product_line_id ON public.products USING btree (product_line_id);
+
+
+--
+-- Name: index_reports_on_branch_office_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_reports_on_branch_office_id ON public.reports USING btree (branch_office_id);
+
+
+--
+-- Name: index_reports_on_user_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_reports_on_user_id ON public.reports USING btree (user_id);
+
+
+--
+-- Name: index_sale_details_on_product_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_sale_details_on_product_id ON public.sale_details USING btree (product_id);
+
+
+--
+-- Name: index_sale_details_on_sale_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_sale_details_on_sale_id ON public.sale_details USING btree (sale_id);
+
+
+--
+-- Name: index_sales_on_branch_office_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_sales_on_branch_office_id ON public.sales USING btree (branch_office_id);
+
+
+--
+-- Name: index_sales_on_client_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_sales_on_client_id ON public.sales USING btree (client_id);
+
+
+--
+-- Name: index_sales_on_user_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_sales_on_user_id ON public.sales USING btree (user_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+
+
+--
+-- Name: cities fk_rails_1064bf2ba1; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities
+    ADD CONSTRAINT fk_rails_1064bf2ba1 FOREIGN KEY (department_id) REFERENCES public.departments(id);
+
+
+--
+-- Name: departments fk_rails_1cbf437e14; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT fk_rails_1cbf437e14 FOREIGN KEY (country_id) REFERENCES public.countries(id);
+
+
+--
+-- Name: branch_offices fk_rails_220a365be2; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.branch_offices
+    ADD CONSTRAINT fk_rails_220a365be2 FOREIGN KEY (city_id) REFERENCES public.cities(id);
+
+
+--
+-- Name: branch_offices fk_rails_27bdca9d21; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.branch_offices
+    ADD CONSTRAINT fk_rails_27bdca9d21 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: sales fk_rails_3fb137af04; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sales
+    ADD CONSTRAINT fk_rails_3fb137af04 FOREIGN KEY (client_id) REFERENCES public.clients(id);
+
+
+--
+-- Name: reports fk_rails_5534a7daa9; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_5534a7daa9 FOREIGN KEY (branch_office_id) REFERENCES public.branch_offices(id);
+
+
+--
+-- Name: sales fk_rails_5e0f24b86d; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sales
+    ADD CONSTRAINT fk_rails_5e0f24b86d FOREIGN KEY (branch_office_id) REFERENCES public.branch_offices(id);
+
+
+--
+-- Name: sale_details fk_rails_660925225d; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sale_details
+    ADD CONSTRAINT fk_rails_660925225d FOREIGN KEY (sale_id) REFERENCES public.sales(id);
+
+
+--
+-- Name: sales fk_rails_8e94f16ccc; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sales
+    ADD CONSTRAINT fk_rails_8e94f16ccc FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: areas fk_rails_984ac2f210; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.areas
+    ADD CONSTRAINT fk_rails_984ac2f210 FOREIGN KEY (branch_office_id) REFERENCES public.branch_offices(id);
+
+
+--
+-- Name: products fk_rails_a6994c0839; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_a6994c0839 FOREIGN KEY (branch_office_id) REFERENCES public.branch_offices(id);
+
+
+--
+-- Name: reports fk_rails_c7699d537d; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_c7699d537d FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: sale_details fk_rails_ec3db9014c; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sale_details
+    ADD CONSTRAINT fk_rails_ec3db9014c FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: products fk_rails_febee85a4a; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_febee85a4a FOREIGN KEY (product_line_id) REFERENCES public.product_lines(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

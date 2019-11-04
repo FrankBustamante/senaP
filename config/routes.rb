@@ -14,7 +14,14 @@ Rails.application.routes.draw do
   resources :branch_offices do
     resources :areas
     resources :products
-    resources :employees
+    resources :employees  
+  end
+
+  resources :managers do
+    collection do
+      get  :new_manager
+      post :create_manager
+    end
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

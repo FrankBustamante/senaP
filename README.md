@@ -5,20 +5,39 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+#REQUISITOS
 
-* System dependencies
+* Ruby version 2.5.1
 
-* Configuration
+* Rails version 5.2.3
 
-* Database creation
+* System dependencies Motor de base postgresql instalado y 
+  corriendo
 
-* Database initialization
+* NodeJS version 10 o superior
 
-* How to run the test suite
+* JDK de Java
 
-* Services (job queues, cache servers, search engines, etc.)
+#PASOS PARA LA INSTALACION, CONFIGURACIÓN Y EJECUCIÓN
 
-* Deployment instructions
+en la raiz del proyecto
 
-* ...
+##Ejecutar desde una terminal, CMD, Shell ó Bash:
+
+  * bundle install
+
+  * rails db:create
+  * rails db:migrate
+
+  * rails db:seed
+
+  * rails server
+
+  abrir en el navegador la sig url:  http://localhost:3000
+
+##Credenciales
+
+Usuario: admin@admin.com
+Password: adminPass123
+
+--No es necesario importar el archivo .psql ya que al seguir los pasos se creara la db de manera automatica
